@@ -1,8 +1,11 @@
-import { profissionais } from '@barbabrutal/core'
+'use client'
+
 import ItemProfissional from './ItemProfissional'
 import TituloSecao from '../shared/TituloSecao'
+import useProfissionais from '@/data/hooks/useProfissionais'
 
 export default function NossosProfissionais() {
+    const { profissionais } = useProfissionais()
     return (
         <div className="flex flex-col gap-y-16">
             <TituloSecao
