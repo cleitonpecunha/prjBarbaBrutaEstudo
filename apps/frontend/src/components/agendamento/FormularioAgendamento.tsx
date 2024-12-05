@@ -1,38 +1,57 @@
-import { useState } from "react";
-import { Profissional, Servico } from "@barbabrutal/core";
 import CampoProfissional from "../profissional/CampoProfissional";
 import CampoServicos from "../servico/CampoServicos";
 import CampoDataHora from "../shared/formulario/CampoDataHora";
-
+//import Link from "next/link";
+import useAgendamento from "@/data/hooks/useAgendamento";
+import Passos from "../shared/Passos";
 
 export default function FormularioAgendamento() {
 
-    const [ profissional, setProfissional ] = useState<Profissional | null>(null)
-    const [ servicos, setServicos ] = useState<Servico[]>([])
-    const [ data, setData ] = useState<Date>(new Date)
+    // hook de agendamento
+    const {profissional,
+           servicos,
+           data,
+           selecionarProfissional,
+           selecionarServicos,
+           selecionarData,
+           agendar} = useAgendamento()
 
     return (
         <div className="flex flex-col gap-5">
 
-            <CampoProfissional 
-                label="Profissional" 
-                value={profissional} 
-                onChange={setProfissional}
-                className="input"
-            />
-            <CampoServicos 
-                label="Serviços" 
-                value={servicos} 
-                onChange={setServicos}
-                className="input"
-            /> 
-            <CampoDataHora
-                label="Data e Hora" 
-                value={data} 
-                onChange={setData}
-                className="input"
-                apenasNoFuturo={true}
-            /> 
+            <Passos 
+                labels={['Selecione o Profissional','Selecione o Serviço','Escolha o Horário']}
+                permiteProximoPasso={[!!profissional,servicos.length>0,!!data,]}
+                acao={agendar}
+                labelAcao="Agendar"
+            >
+            
+                <CampoProfissional 
+                    label="Profissionais disponíveis" 
+                    value={profissional} 
+                    onChange={selecionarProfissional}
+                    className="input"
+                />
+                <CampoServicos 
+                    label="Serviços disponíveis" 
+                    value={servicos} 
+                    onChange={selecionarServicos}
+                    className="input"
+                /> 
+                <CampoDataHora
+                    label="Data e Hora" 
+                    value={data} 
+                    onChange={selecionarData}
+                    className="input"
+                    apenasNoFuturo={true}
+                />
+            
+            </Passos>            
+
+            {/* <div className="flex gap-5">
+                <button className="button bg-blue-500" onClick={agendar}>Agendar</button>
+                <Link href="/" className="button">Voltar</Link>
+            </div> */}
 
         </div>
     )
