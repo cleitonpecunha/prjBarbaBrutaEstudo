@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import Logo from '../Logo'
-import { Progresso } from './Progresso'
+import { Progresso } from '../utils/Progresso'
 
 export default function Processando() {    
 

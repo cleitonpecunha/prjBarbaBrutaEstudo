@@ -27,3 +27,14 @@ export default class AgendaUtils {
         }, [] as string[])
     }
 }
+
+//console.log(AgendaUtils.horariosDoDia())
+
+/* console.log(AgendaUtils.duracaoTotal([
+    {qtdeSlots:1},
+    {qtdeSlots:2},
+    {qtdeSlots:3},
+    {qtdeSlots:4},
+    {qtdeSlots:5}
+])
+) */

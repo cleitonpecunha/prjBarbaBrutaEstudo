@@ -2,7 +2,7 @@
 
 import { usePathname, useRouter } from 'next/navigation'
 import useSessao from '@/data/hooks/useSessao'
-import Processando from './Processando'
+import Processando from '../utils/Processando'
 
 export default function ForcarAutenticacao(props: any) {
     

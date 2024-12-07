@@ -48,9 +48,9 @@ export default function CampoDia(props: CampoDiaProps) {
 }
 
     return (
-        <div className="flex flex-col overflow-hidden">
+        <div className="flex flex-col overflow-hidden gap-3">
             
-            {props.label && <span>{props.label}</span>}
+            {props.label && <span className="uppercase text-zinc-400 font-light">{props.label}</span>}
             
             {/* <input 
                 {...props}

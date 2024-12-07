@@ -1,13 +1,18 @@
+import { DateUtils } from "@barbabrutal/core"
 import CampoDia from "./CampoDia"
+import CampoHorario from "./CampoHorario"
 
 export interface CampoDataHoraProps extends Omit<React.SelectHTMLAttributes<HTMLInputElement>, "value" | "onChange" > {
     label?: string
     value: Date | null
+    qtdeHorarios: number
     onChange: ( value: Date) => void
     apenasNoFuturo?: boolean
 }
 
-export default function CampoDataHora(props: CampoDataHoraProps) {    
+export default function CampoDataHora(props: CampoDataHoraProps) {
+    
+    const data = props.value ?? DateUtils.hojeComHoraZerada()
 
     /* function onChange(e: React.ChangeEvent<HTMLInputElement>) {
         //console.log(e.target.value)
@@ -16,7 +21,12 @@ export default function CampoDataHora(props: CampoDataHoraProps) {
     } */
 
     return (
-        <div className="flex flex-col">
+        <div className="flex flex-col gap-6">
+
+            {/* <div className="flex gap-2">
+                <span>{data.toLocaleDateString('pt-BR')}</span>
+                <span>{data.toLocaleTimeString('pt-BR')}</span>
+            </div> */}
             
             {/* {props.label && <span>{props.label}</span>}
             
@@ -30,7 +40,13 @@ export default function CampoDataHora(props: CampoDataHoraProps) {
 
             <CampoDia
                 label="Dias Disponíveis"
-                value={props.value ?? new Date()}
+                value={data}
+                onChange={props.onChange}
+            />
+            <CampoHorario
+                label="Horários Disponíveis"
+                value={data}
+                qtdeHorarios={props.qtdeHorarios}
                 onChange={props.onChange}
             />
 

@@ -50,3 +50,4 @@ export default class DateUtils {
 }
 
 //console.log(DateUtils.proximosDias(7))
+//console.log(DateUtils.aplicarHorario(new Date(),'13:45').toLocaleTimeString())
