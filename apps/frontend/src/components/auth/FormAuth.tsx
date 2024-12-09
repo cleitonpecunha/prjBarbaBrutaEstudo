@@ -8,6 +8,7 @@ import CampoInputEmail from '../shared/formulario/CampoInputEmail'
 import CampoInputTelefone from '../shared/formulario/CampoInputTelefone'
 import CampoInputText from '../shared/formulario/CampoInputText'
 import useSessao from '@/data/hooks/useSessao'
+import Mensagem from '../shared/Mensagem'
 
 export default function FormAuth() {
 
@@ -106,6 +107,10 @@ export default function FormAuth() {
                 
                 </div>                               
 
+            </div>
+
+            <div className="absolute bottom-10 right-10">
+                <Mensagem />
             </div>
             
         </div>

@@ -10,6 +10,7 @@ export default function useAPI() {
         let conteudo = ''
         try {
             conteudo = await resposta.text()
+            //console.log(conteudo)
             return JSON.parse(conteudo)
         } catch (e) {
             return conteudo
@@ -40,6 +41,7 @@ export default function useAPI() {
             },
             body: JSON.stringify(body),
         })
+        //console.log(resposta)
         return extrairDados(resposta)
     }
     

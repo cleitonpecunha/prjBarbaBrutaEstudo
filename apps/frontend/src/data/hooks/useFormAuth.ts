@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import useAPI from './useAPI'
 import useSessao from "./useSessao"
 import { useRouter, useSearchParams } from "next/navigation"
+import useMensagem from "./useMensagem"
 
 export default function useFormAuth() {
 
@@ -19,6 +20,7 @@ export default function useFormAuth() {
     // hook
     const { httpPost } = useAPI()
     const { usuario, iniciarSessao } = useSessao()
+    const { adicionarErro, adicionarSucesso} = useMensagem()
 
     const router = useRouter()
 
@@ -33,15 +35,24 @@ export default function useFormAuth() {
 
     async function login() {
         const token = await httpPost('auth/login', { email, senha })
+
         //console.log('Login:',{email,senha,token})
         //console.log(token)
         iniciarSessao(token)
+
+        //console.log(token)
+        if (usuario?.id) {
+            adicionarSucesso('Seja Bem Vindo!')
+        } else {
+            adicionarErro('Usuário e/ou senha inválido.')
+        }
+
         //limparFormulario()        
     }
 
     async function registar() {
         await httpPost('auth/registrar', { nome, email, senha, telefone })
-        //console.log('Cadastro:',{nome, email,senha, telefone})        
+        //console.log('Cadastro:',{nome, email,senha, telefone})
     }
 
     function limparFormulario() {
