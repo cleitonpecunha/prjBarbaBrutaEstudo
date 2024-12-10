@@ -9,7 +9,7 @@ export interface CampoHorarioProps extends Omit<React.SelectHTMLAttributes<HTMLI
     label?: string
     value: Date
     qtdeHorarios: number
-    horariosOcupados: string[]
+    //horariosOcupados: string[]
     onChange: ( value: Date ) => void
 }
 

@@ -1,5 +1,10 @@
 export default class DateUtils {
     
+    static hojeComHora() {
+        const hoje = new Date()
+        return hoje
+    }
+    
     static hojeComHoraZerada() {
         const hoje = new Date()
         hoje.setHours(0, 0, 0, 0)
@@ -9,6 +14,23 @@ export default class DateUtils {
     static proximosDias(qtde: number, incluirHoje: boolean = true) {
         const dias = []
         const hoje = DateUtils.hojeComHoraZerada()
+
+        if (incluirHoje) {
+            dias.push(hoje)
+        }
+
+        for (let i = 1; dias.length < qtde; i++) {
+            const dia = new Date(hoje)
+            dia.setDate(hoje.getDate() + i)
+            dias.push(dia)
+        }
+
+        return dias
+    }
+
+    static dataHoje(qtde: number, incluirHoje: boolean = true) {
+        const dias = []
+        const hoje = DateUtils.hojeComHora()
 
         if (incluirHoje) {
             dias.push(hoje)

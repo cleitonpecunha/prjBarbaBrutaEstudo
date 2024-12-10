@@ -3,10 +3,32 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSepara
 import Image from 'next/image'
 import { IconCalendar, IconHome, IconLogout } from '@tabler/icons-react'
 import Link from 'next/link'
+import { DateUtils } from "@barbabrutal/core"
 
 export default function MenuUsuario() {
     
     const { usuario, encerrarSessao } = useSessao()
+
+    const data = DateUtils.dataHoje(1)
+
+    function retonarSaudacaoUsuario() {
+        let saudacaoUsuario;
+        const horaData = data.toLocaleString('pt-BR', { hour: '2-digit', minute: '2-digit'})
+
+        if (horaData.substring(0, 2) >= '00' && horaData.substring(0, 2) <= '11') {
+            saudacaoUsuario = 'Bom Dia'
+        } else if (horaData.substring(0, 2) >= '12' && horaData.substring(0, 2) <= '17') {
+            saudacaoUsuario = 'Boa Tarde'
+        } else {
+            saudacaoUsuario = 'Boa Noite'
+        }
+
+        return (
+            <div className="text-zinc-400 text-sm">
+                {saudacaoUsuario}
+            </div>
+        )
+    }
 
     return usuario ? (
         
@@ -14,13 +36,17 @@ export default function MenuUsuario() {
 
             <DropdownMenuTrigger>
                 <div className="flex items-center gap-3">
-                    <div className="flex flex-col items-end">
-                        <span className="font-bold">{usuario?.nome}</span>
+                    
+                    <div className="flex flex-col items-end"> 
+                        {retonarSaudacaoUsuario()}
+                        <span className="font-bold uppercase">{usuario?.nome}</span>
                         <span className="text-zinc-400 text-xs">{usuario?.email}</span>
                     </div>
+                    
                     <div className="bg-zinc-700 w-10 h-10 p-1 rounded-full">
                         <Image src="/avatar.png" width={40} height={40} alt="Avatar" />
                     </div>
+
                 </div>
             </DropdownMenuTrigger>
             
