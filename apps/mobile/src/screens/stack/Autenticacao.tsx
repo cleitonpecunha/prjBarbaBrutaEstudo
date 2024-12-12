@@ -1,25 +1,104 @@
-import { View, Text, StyleSheet, Pressable } from 'react-native'
+import { useEffect } from 'react'
+import { View, Text, StyleSheet, ImageBackground, Image, Pressable } from 'react-native'
+import useFormAuth from '@/src/data/hooks/useFormAuth'
+import useSessao from '@/src/data/hooks/useSessao'
+import CampoEmail from '@/src/components/shared/CampoEmail'
+import CampoSenha from '@/src/components/shared/CampoSenha'
+import CampoTexto from '@/src/components/shared/CampoTexto'
 
-export function Autenticacao({ navigation }: any) {
-    return <View style={ styles.container }>
-        <Text style={ styles.texto }>Entrar</Text>
-    </View>
+export default function Autenticacao({ navigation }: any) {
+    
+    const { usuario } = useSessao()
+    
+    const {
+        nome,
+        email,
+        senha,
+        modo,
+        erros,
+        alterarNome,
+        alterarEmail,
+        alterarSenha,
+        alterarModo,
+        submeter,
+    } = useFormAuth()
 
-    /* return <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-        <Pressable onPress={() => navigation?.replace('Abas')}>
-            <Text>Entrar</Text>
-        </Pressable>
-    </View> */
+    useEffect(() => {
+        if (usuario) {
+            navigation?.replace('Abas')
+        }
+    }, [usuario])
+
+    return (
+        <View style={styles.container}>
+            <ImageBackground
+                source={require('@/assets/images/inicio/fundo.png')}
+                style={styles.imagemDeFundo}
+            >
+                <View style={styles.conteudo}>
+                    <Image
+                        source={require('@/assets/images/inicio/logo-brutal.png')}
+                        style={styles.logo}
+                    />
+                    <Text style={styles.titulo}>🤘 DO CLASSICO AO ROCK 🤘</Text>
+                    <Text style={styles.descricao}>
+                        Cabelo afiado, barba de lenhador e mãos de motoqueiro, tudo ao som de rock
+                        pesado!
+                    </Text>
+                    <View style={styles.formulario}>
+                        {modo === 'cadastro' && (
+                            <CampoTexto
+                                label="Nome"
+                                placeholder="Digite seu nome"
+                                value={nome}
+                                onChangeText={alterarNome}
+                                error={erros.nome}
+                            />
+                        )}
+                        <CampoEmail
+                            label="E-mail"
+                            placeholder="Digite seu e-mail"
+                            value={email.toLowerCase()}
+                            onChangeText={alterarEmail}
+                            error={erros.email}
+                        />
+                        <CampoSenha
+                            label="Senha"
+                            placeholder="Informe sua senha"
+                            value={senha}
+                            onChangeText={alterarSenha}
+                            error={erros.senha}
+                        />
+                    </View>
+                    <Pressable style={styles.button} onPress={submeter}>
+                        <Text style={styles.buttonText}>Entrar</Text>
+                    </Pressable>
+                    <Pressable onPress={() => alterarModo()} style={{ paddingTop: 25 }}>
+                        <Text style={styles.buttonText}>
+                            {modo === 'login'
+                                ? 'Não possui conta? Faça seu cadastro!'
+                                : 'Já possui conta? Clique aqui para fazer login!'}
+                        </Text>
+                    </Pressable>
+                </View>
+            </ImageBackground>
+        </View>
+    )
 }
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        /* justifyContent: 'center',
+        alignItems: 'center' */
     },
     imagemDeFundo: {
         flex: 1,
         resizeMode: 'cover',
         justifyContent: 'center',
+    },
+    texto: {
+        fontSize: 30
     },
     formulario: {
         padding: 20,
@@ -55,8 +134,5 @@ const styles = StyleSheet.create({
     buttonText: {
         color: '#fff',
         fontSize: 16,
-    },
-    texto: {
-        fontSize: 30
     }
 })
