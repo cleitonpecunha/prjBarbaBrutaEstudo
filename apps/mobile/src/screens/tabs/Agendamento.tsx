@@ -4,15 +4,11 @@ import { ProvedorAgendamento } from '@/src/data/contexts/ContextoAgendamento'
 
 export default function Agendamento({ navigation }: any) {
     return (
-        <ProvedorAgendamento>
-            
-            <SafeAreaView style={styles.container}>
-                <ScrollView contentContainerStyle={styles.scroll}>
-                    <FormularioAgendamento finalizar={() => navigation.navigate('Sumario')} />
-                </ScrollView>
-            </SafeAreaView>
-
-        </ProvedorAgendamento>
+        <SafeAreaView style={styles.container}>
+            <ScrollView contentContainerStyle={styles.scroll}>
+                <FormularioAgendamento finalizar={() => navigation.navigate('Sumario')} />
+            </ScrollView>
+        </SafeAreaView>
     )
 }
 
