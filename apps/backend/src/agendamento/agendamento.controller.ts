@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpException, Param, Post } from '@nestjs/common';
 import { UsuarioLogado } from 'src/shared/usuario.decorator';
 import { AgendamentoPrisma } from './agendamento.prisma';
 import { Agendamento, 
@@ -19,6 +19,9 @@ export class AgendamentoController {
         @Body() dados: Agendamento,
         @UsuarioLogado() usuario: Usuario,
     ) {
+        if (dados.usuario.id !== usuario.id) {
+            throw new HttpException('Usuário não autorizado!',401)
+        }
         const agendamento: Agendamento = { ...dados, data: new Date(dados.data) };
         const casoDeUso = new NovoAgendamento(this.repo);
         await casoDeUso.executar({ agendamento, usuario });
@@ -63,10 +66,10 @@ export class AgendamentoController {
         @Param('id') id: string,
         @UsuarioLogado() usuario: Usuario,
     ) {
+        if (!usuario.barbeiro) {
+            throw new HttpException('Usuário não autorizado!',401)
+        }
         const casoDeUso = new ExcluirAgendamento(this.repo);
-        await casoDeUso.executar({
-        id: +id,
-        usuario,
-        });
+        await casoDeUso.executar({id: +id, usuario });
     }
 }

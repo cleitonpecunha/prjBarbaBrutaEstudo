@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import useAPI from './useAPI'
 import useSessao from "./useSessao"
 import { useRouter, useSearchParams } from "next/navigation"
-import useMensagem from "./useMensagem"
+//import useMensagem from "./useMensagem"
 
 export default function useFormAuth() {
 
@@ -20,7 +20,7 @@ export default function useFormAuth() {
     // hook
     const { httpPost } = useAPI()
     const { usuario, iniciarSessao } = useSessao()
-    const { adicionarErro, adicionarSucesso} = useMensagem()
+    //const { adicionarErro, adicionarSucesso} = useMensagem()
 
     const router = useRouter()
 
@@ -41,11 +41,11 @@ export default function useFormAuth() {
         iniciarSessao(token)
 
         //console.log(token)
-        if (usuario?.id) {
-            adicionarSucesso('Seja Bem Vindo!')
-        } else {
-            adicionarErro('Usuário e/ou senha inválido.')
-        }
+        //if (usuario?.id) {
+        //    adicionarSucesso('Seja Bem Vindo!')
+        //} else {
+        //    adicionarErro('Usuário e/ou senha inválido.')
+        //}
 
         //limparFormulario()        
     }
