@@ -6,7 +6,7 @@ export default function Rodape() {
         //<div className="bg-black">
         <div>
             
-            <footer className="container flex flex-col bg-black text-zinc-400 py-10 gap-10">                
+            <footer className="container flex flex-col bg-black text-zinc-400 py-10 gap-10 mt-5">                
                 
                 <div className="flex flex-col md:flex-row items-center md:items-start justify-between text-center md:text-left gap-5 md:gap-0">
                     
