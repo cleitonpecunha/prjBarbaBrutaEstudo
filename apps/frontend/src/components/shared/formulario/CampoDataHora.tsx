@@ -7,6 +7,7 @@ export interface CampoDataHoraProps extends Omit<React.SelectHTMLAttributes<HTML
     value: Date | null
     qtdeHorarios: number
     onChange: ( value: Date) => void
+    horariosOcupados: string[]
     apenasNoFuturo?: boolean
 }
 
@@ -47,6 +48,7 @@ export default function CampoDataHora(props: CampoDataHoraProps) {
                 label="Horários Disponíveis"
                 value={data}
                 qtdeHorarios={props.qtdeHorarios}
+                horariosOcupados={props.horariosOcupados}
                 onChange={props.onChange}
             />
 

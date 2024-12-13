@@ -1,6 +1,6 @@
 'use client'
 
-import { createContext, useState } from "react";
+import { createContext, useCallback, useEffect, useState } from "react";
 import useAPI from "../hooks/useAPI";
 import useSessao from "../hooks/useSessao";
 import { AgendaUtils, DateUtils, Profissional, Servico } from "@barbabrutal/core";
@@ -11,7 +11,7 @@ export interface ContextoAgendamentoProps {
     servicos: Servico[]
     data: Date | null
     dataValida: Date | null
-    //horariosOcupados: string[]
+    horariosOcupados: string[]
     selecionarProfissional: (profissional: Profissional | null) => void
     selecionarServicos: (servicos: Servico[]) => void
     selecionarData: (data: Date | null) => void
@@ -26,16 +26,16 @@ const ContextoAgendamento = createContext<ContextoAgendamentoProps>({} as any)
 
 export function ProvedorAgendamento(props: any) {
 
-    const { httpPost } = useAPI()
+    const { httpPost,httpGet } = useAPI()
     const { usuario } = useSessao()
     const router = useRouter()
 
-    //const [horariosOcupados, setHorariosOcupados] = useState<string[]>([])
+    const [horariosOcupados, setHorariosOcupados] = useState<string[]>([])
     const [ profissional, setProfissional ] = useState<Profissional | null>(null)
     const [ servicos, setServicos ] = useState<Servico[]>([])
     const [ data, setData ] = useState<Date | null>(null)
 
-    //const dia = data.toISOString().slice(0, 10) ?? ''
+    const dia = data?.toISOString().slice(0, 10) ?? ''
 
     function podeAgendar(): boolean {
         if (!profissional) return false
@@ -73,7 +73,7 @@ export function ProvedorAgendamento(props: any) {
         return servicos.reduce((acc, servico) => acc + servico.preco, 0)
     }
 
-    /* const obterHorariosOcupados = useCallback(
+    const obterHorariosOcupados = useCallback(
         async function (dia: string, profissional: Profissional): Promise<string[]> {
             if (!dia || !profissional) return []
             const ocupacao = await httpGet(`agendamentos/ocupacao/${profissional!.id}/${dia}`)
@@ -85,7 +85,7 @@ export function ProvedorAgendamento(props: any) {
     useEffect(() => {
         if (!dia || !profissional) return
         obterHorariosOcupados(dia, profissional).then(setHorariosOcupados)
-    }, [dia, profissional, obterHorariosOcupados]) */
+    }, [dia, profissional, obterHorariosOcupados])
 
     return (
         <ContextoAgendamento.Provider value={{
@@ -97,7 +97,7 @@ export function ProvedorAgendamento(props: any) {
                 if (data.getHours() < 8 || data.getHours() > 20) return null
                 return data
             },
-            //horariosOcupados,
+            horariosOcupados,
             selecionarProfissional: setProfissional,
             selecionarServicos: setServicos,
             selecionarData: setData,

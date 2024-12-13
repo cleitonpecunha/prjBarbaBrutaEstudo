@@ -3,6 +3,7 @@ import { AgendaUtils } from '../../utils'
 // { inicio: "20:30", qtde: 4, horariosOcupados: ["09:45", "11:30", "15:45", "16:00"] }
 // ["20:30", "20:45"]
 export default class Horarios {
+    
     constructor(
         public readonly inicio: string,
         public readonly qtde: number,

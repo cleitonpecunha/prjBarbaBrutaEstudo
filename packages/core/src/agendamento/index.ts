@@ -7,6 +7,6 @@ import BuscarAgendaProfissionalPorDia from "./service/BuscarAgendamentosPorDia"
 import ExcluirAgendamento from "./service/ExcluirAgendamento"
 import ObterHorariosOcupados from "./service/ObterHorariosOcupados"
 
-export type { Agendamento, Horarios, RepositorioAgendamento }
+export type { Agendamento, RepositorioAgendamento }
 
-export { NovoAgendamento, BuscarAgendamentosCliente, BuscarAgendaProfissionalPorDia, ExcluirAgendamento, ObterHorariosOcupados }
+export { NovoAgendamento, BuscarAgendamentosCliente, BuscarAgendaProfissionalPorDia, ExcluirAgendamento, ObterHorariosOcupados, Horarios }

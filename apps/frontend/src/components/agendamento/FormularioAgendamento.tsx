@@ -12,6 +12,7 @@ export default function FormularioAgendamento() {
     const {profissional,
            servicos,
            data,
+           horariosOcupados,
            selecionarProfissional,
            selecionarServicos,
            selecionarData,
@@ -45,6 +46,7 @@ export default function FormularioAgendamento() {
                     value={data}
                     qtdeHorarios={qtdeHorarios()}
                     onChange={selecionarData}
+                    horariosOcupados={horariosOcupados}
                     className="input"
                     apenasNoFuturo={true}
                 />
